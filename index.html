@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>SANDY CAPTURES</title>
+    <link rel="icon" type="image/png" href="favicon.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Background Image */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('picture1.jpg') center/cover no-repeat;
+            filter: brightness(70%);
+            z-index: -2;
+        }
+
+        /* Overlay Effect */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+            z-index: -1;
+        }
+
+        /* Body */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            text-align: center;
+            color: white;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Main Content */
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        /* Title Animation */
+        h1 {
+            font-size: clamp(2rem, 10vw, 4rem);
+            opacity: 0;
+            transform: scale(0);
+            animation: zoomIn 1.5s ease-out forwards;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 0 15px;
+        }
+
+        /* Enter Button */
+        .enter-btn {
+            display: none;
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background 0.3s ease;
+            opacity: 0;
+        }
+
+        .enter-btn:hover {
+            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            position: relative;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #f5a623;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            color: #f5a623;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+        }
+
+        /* Keyframes */
+        @keyframes zoomIn {
+            0% { opacity: 0; transform: scale(0); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .enter-btn {
+                padding: 10px 20px;
+            }
+            
+            .footer-section {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .footer {
+                padding: 15px 5px;
+            }
+        }
+
+        /* Touch devices */
+        @media (hover: none) {
+            .enter-btn:hover {
+                transform: none;
+                background-color: rgba(255, 255, 255, 0.8);
+            }
+            
+            .enter-btn:active {
+                transform: scale(1.1);
+                background-color: rgba(255, 255, 255, 1);
+            }
+            
+            .social-icon:hover {
+                transform: none;
+            }
+            
+            .social-icon:active {
+                transform: translateY(-3px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="background"></div>
+    <div class="overlay"></div>
+
+    <!-- Content Section -->
+    <div class="main-content">
+        <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+        <h1 id="helloText">SANDY CAPTURES</h1>
+        <button class="enter-btn" id="enterBtn">Enter</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact Details</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:saisandeepchilveru@gmail.com">saisandeepchilveru@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+918008096959">+91 80080 96959</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Hyderabad, India</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Connect With Me</h3>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/portrait__grapher__/" class="social-icon" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@saisandeepsandy1303" class="social-icon" target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://wa.me/918008096959" class="social-icon" target="_blank" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:saisandeepchilveru@gmail.com" class="social-icon" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="contact-info">
+                    <a href="about.html">About Me</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="portfolio.html">Portfolio</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; <span id="current-year"></span> SANDYCAPTURES. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Start animation for title
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            setTimeout(() => {
+                document.getElementById("helloText").style.animation = "zoomIn 1.5s ease-out forwards";
+            }, 300);
+
+            // Show button after title animation
+            setTimeout(() => {
+                let btn = document.getElementById("enterBtn");
+                btn.style.display = "inline-block";
+                setTimeout(() => {
+                    btn.style.opacity = "1";
+                    btn.style.animation = "fadeIn 1s ease-out forwards";
+                }, 50);
+            }, 1800);
+
+            // Click handler for Enter button
+            document.getElementById("enterBtn").addEventListener("click", function() {
+                playSoundAndRedirect("portfolio.html");
+            });
+            
+            // Add click handlers to all navigation links
+            document.querySelectorAll('a[href^="about.html"], a[href^="gallery.html"], a[href^="portfolio.html"]')
+                .forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        playSoundAndRedirect(this.getAttribute('href'));
+                    });
+                });
+
+            function playSoundAndRedirect(url) {
+                let clickSound = document.getElementById("clickSound");
+                clickSound.volume = 0.3;
+                let playPromise = clickSound.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        redirect(url);
+                    }).then(() => {
+                        redirect(url);
+                    });
+                } else {
+                    redirect(url);
+                }
+            }
+            
+            function redirect(url) {
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 300);
+            }
+        });
+    </script>
+</body>
+</html>

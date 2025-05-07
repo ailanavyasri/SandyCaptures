@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.jpg"> <!-- Fixed favicon spelling -->
+    <title>SANDY CAPTURES | Photography Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: rgba(255, 255, 255, 0.9);
+            --hover-color: rgba(255, 255, 255, 1);
+            --text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            position: relative;
+            color: white;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        /* Background Image with Overlay */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('picture1.jpg') center/cover no-repeat;
+            filter: brightness(70%);
+            z-index: -1;
+            transition: transform 10s ease-in-out;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+            z-index: -1;
+        }
+
+        /* Content Styling */
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 90%;
+            padding: 20px;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            margin-bottom: 25px;
+            text-shadow: var(--text-shadow);
+        }
+
+        h1.fade-in {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        p.fade-in {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* Button Container */
+        .button-container {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        /* Button Styling */
+        .nav-button {
+            width: 200px;
+            padding: 14px 25px;
+            font-size: 1.1rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: 2px solid white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
+            transform: translateX(-10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Social Links */
+        .social-links {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.8rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            color: var(--hover-color);
+        }
+
+        /* Copyright */
+        .copyright {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            z-index: 10;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            h1.fade-in {
+                font-size: 2.2rem;
+                margin-bottom: 20px;
+            }
+
+            p.fade-in {
+                font-size: 1.3rem;
+            }
+
+            .button-container {
+                top: 15px;
+                right: 15px;
+                gap: 12px;
+            }
+
+            .nav-button {
+                width: 160px;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+
+            .social-links {
+                bottom: 20px;
+                left: 20px;
+                gap: 15px;
+            }
+
+            .social-link {
+                font-size: 1.5rem;
+            }
+
+            .copyright {
+                bottom: 20px;
+                right: 20px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1.fade-in {
+                font-size: 1.8rem;
+            }
+
+            p.fade-in {
+                font-size: 1.1rem;
+            }
+
+            .button-container {
+                position: static;
+                margin-top: 30px;
+                align-items: center;
+            }
+
+            .nav-button {
+                width: 180px;
+            }
+
+            .social-links {
+                position: static;
+                margin-top: 30px;
+                justify-content: center;
+            }
+
+            .copyright {
+                position: static;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background with Overlay -->
+    <div class="background" id="background"></div>
+    <div class="overlay"></div>
+
+    <!-- Navigation Buttons -->
+    <div class="button-container">
+        <button class="nav-button" onclick="window.location.href='about.html'">
+            <i class="fas fa-user"></i> PICTURE STORY
+        </button>
+        <button class="nav-button" onclick="window.location.href='gallery.html'">
+            <i class="fas fa-images"></i> GALLERY
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1 class="fade-in">SANDY CAPTURES</h1>
+        <p class="fade-in">Capturing Moments, Creating Memories</p>
+        <p class="fade-in">Photography is the art of frozen time</p>
+        <p class="fade-in">Every picture tells your unique story</p>
+    </div>
+
+    <!-- Social Links -->
+    <div class="social-links">
+        <a href="https://www.instagram.com/portrait__grapher__/" class="social-link" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.youtube.com/@saisandeepsandy1303" class="social-link" target="_blank">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://wa.me/918008096959" class="social-link" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="mailto:saisandeepchilveru@gmail.com" class="social-link">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+        &copy; <span id="year"></span> SANDYCAPTURES. All Rights Reserved.
+    </div>
+
+    <script>
+        // Text reveal animation
+        const texts = document.querySelectorAll('.fade-in');
+        const background = document.getElementById('background');
+
+        function showText(index) {
+            if (index < texts.length) {
+                texts[index].style.opacity = "1";
+                texts[index].style.transform = "translateY(0)";
+                setTimeout(() => showText(index + 1), 800);
+            }
+        }
+
+        // Background zoom effect
+        function zoomBackground() {
+            background.style.transform = "scale(1.1)";
+        }
+
+        // Set current year in copyright
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => showText(0), 500);
+            setTimeout(zoomBackground, 1000);
+            
+            // Add click sound effect to buttons
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Create and play click sound
+                    const clickSound = new Audio('click.mp3');
+                    clickSound.volume = 0.3;
+                    clickSound.play().catch(() => {});
+                    
+                    // Navigate after sound plays
+                    setTimeout(() => {
+                        window.location.href = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

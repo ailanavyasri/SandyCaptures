@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - SANDYCAPTURES</title>
+    <link rel="icon" type="image/png" href="favicon.jpg"> <!-- Favicon -->
+    <style>
+        /* General Page Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: white;
+            text-align: center;
+        }
+
+        /* Header */
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #FFD700;
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            max-width: 90%;
+            margin: auto;
+        }
+
+        /* Image Container */
+        .gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        /* Hover Effects */
+        .gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Lightbox (Image Popup) */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .lightbox img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+
+        /* Navigation Arrows */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            transform: translateY(-50%);
+            user-select: none;
+        }
+
+        .prev { left: 10%; }
+        .next { right: 10%; }
+
+        .nav-arrow:hover {
+            color: #FFD700;
+        }
+
+        /* Close Button */
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: red;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 12px 20px;
+            background-color: #FFD700;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #FFA500;
+        }
+
+        /* Animation for Lightbox */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .gallery img {
+                height: 200px;
+            }
+
+            .back-btn {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+
+            .nav-arrow {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="back-btn" onclick="window.location.href='home.html'">← Back to Home</button>
+
+    <h1>Gallery - Best Captures</h1>
+
+    <div class="gallery">
+        <img src="n1.jpg" alt="Photo 1" onclick="openLightbox(0)">
+        <img src="n2.jpg" alt="Photo 2" onclick="openLightbox(1)">
+        <img src="n3.jpg" alt="Photo 3" onclick="openLightbox(2)">
+    </div>
+
+    <!-- Lightbox (Popup for Enlarged Image) -->
+    <div class="lightbox" id="lightbox">
+        <span class="close" onclick="closeLightbox()">×</span>
+        <span class="nav-arrow prev" onclick="changeImage(-1)">❮</span>
+        <img id="lightbox-img" src="" alt="Enlarged Photo">
+        <span class="nav-arrow next" onclick="changeImage(1)">❯</span>
+    </div>
+
+    <script>
+        let images = ["n1.jpg", "n2.jpg", "n3.jpg"];
+        let currentIndex = 0;
+
+        // Function to Open Lightbox
+        function openLightbox(index) {
+            currentIndex = index;
+            document.getElementById("lightbox-img").src = images[currentIndex];
+            document.getElementById("lightbox").style.display = "flex";
+        }
+
+        // Function to Change Image
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = images.length - 1;
+            if (currentIndex >= images.length) currentIndex = 0;
+            document.getElementById("lightbox-img").src = images[currentIndex];
+        }
+
+        // Function to Close Lightbox
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
